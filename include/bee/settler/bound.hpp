@@ -5,8 +5,7 @@
 #include "bee/control/control.hpp"
 
 #include <cstdint>
-#include <vector>
-#include <initializer_list>
+#include <memory>
 
 namespace bee {
 class Bound : public Settler {

@@ -1,16 +1,16 @@
 #pragma once
 
+#include <cstdint>
+
 namespace bee {
 class TickCounter {
     public:
-        TickCounter();
-
-        void startTicker();
+        TickCounter() = default;
         
-        void tickerStarted();
-
         void resetTicker();
 
-        float getTime();
+        float getElapsedTime();
+    private:
+        uint32_t m_time = 0;
 };
 } // namespace bee

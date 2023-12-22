@@ -1,25 +1,28 @@
 #include "control.hpp"
 
-#include "bee/settler/settler.hpp"
+#include "bee/util/tickCounter.hpp"
 
 namespace bee {
 class PID : public Controller {
     public:
-        struct Constants {
-                float kp;
-                float ki;
-                float kd;
-                float iMax;
-        };
-
         PID(float kp, float ki, float kd, float iMax);
 
-        void getConstants(const Constants& constants);
+        void setKP(float kp);
 
-        void setConstants(const Constants& constants);
+        void setKI(float ki);
+
+        void setKD(float kd);
     private:
-        float _update(float error) override;
+        float updateInternal(float error) override;
 
-        Constants m_constants;
+        float m_kp;
+        float m_ki;
+        float m_kd;
+        float m_iMax;
+
+        float m_integral;
+        float m_lastError;
+
+        TickCounter m_tickCounter;
 };
 } // namespace bee

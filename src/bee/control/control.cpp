@@ -3,8 +3,8 @@
 namespace bee {
 float Controller::update(float error) {
     m_error = error;
-    return _update(error);
+    return updateInternal(error);
 }
 
-float Controller::getError() { return m_error; }
+float Controller::getError() const { return m_error; }
 } // namespace bee
