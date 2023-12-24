@@ -24,5 +24,5 @@ Pose Pose::rotateBy(float rhs) const {
 
 float Pose::distance(const Pose& rhs) const { return std::hypot(x - rhs.x, y - rhs.y); }
 
-float Pose::angleTo(const Pose& rhs) const { return std::atan2(x - rhs.x, y - rhs.y); }
+float Pose::angleTo(const Pose& rhs) const { return M_PI - std::atan2(y - rhs.y, x - rhs.x); }
 } // namespace bee
