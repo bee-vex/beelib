@@ -1,6 +1,6 @@
 #pragma once
 
-#include "bee/headingTracker/headingTracker.hpp"
+#include "bee/tracker/headingTracker.hpp"
 
 #include "pros/imu.hpp"
 

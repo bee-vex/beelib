@@ -1,7 +1,6 @@
 #include "bee/tracker/motorTracker.hpp"
 
 #include <cmath>
-#include <iostream>
 
 namespace bee {
 MotorGroupTracker::MotorGroupTracker(float offset, std::shared_ptr<pros::MotorGroup> motors, float wheelDiameter,

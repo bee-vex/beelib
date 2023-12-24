@@ -4,7 +4,7 @@
 #include "bee/odom/twoEncoderOdom.hpp"
 #include "bee/tracker/motorTracker.hpp"
 #include "bee/tracker/rotTracker.hpp"
-#include "bee/headingTracker/inertial.hpp"
+#include "bee/tracker/inertial.hpp"
 
 #include "pros/imu.hpp"
 #include "pros/misc.hpp"

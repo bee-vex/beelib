@@ -1,4 +1,4 @@
-#include "bee/headingTracker/inertial.hpp"
+#include "bee/tracker/inertial.hpp"
 
 #include "bee/math/util.hpp"
 

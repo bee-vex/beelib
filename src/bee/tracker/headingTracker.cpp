@@ -1,4 +1,4 @@
-#include "bee/headingTracker/headingTracker.hpp"
+#include "bee/tracker/headingTracker.hpp"
 
 namespace bee {
 float HeadingTracker::getDeltaRotation() {
