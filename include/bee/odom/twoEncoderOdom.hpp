@@ -16,8 +16,8 @@ class TwoEncoderOdom : public Odom {
 
         void update() override;
     private:
-        const std::shared_ptr<Tracker> m_leftTracker;
-        const std::shared_ptr<Tracker> m_horzTracker;
-        const std::shared_ptr<HeadingTracker> m_headingTracker;
+        std::shared_ptr<Tracker> m_leftTracker;
+        std::shared_ptr<Tracker> m_horzTracker;
+        std::shared_ptr<HeadingTracker> m_headingTracker;
 };
 } // namespace bee

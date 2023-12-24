@@ -2,8 +2,8 @@
 
 namespace bee {
 float HeadingTracker::getDeltaRotation() {
-    const float rotation = getRotation();
-    const float change = rotation - m_lastRotation;
+    float rotation = getRotation();
+    float change = rotation - m_lastRotation;
     m_lastRotation = rotation;
     return change;
 }

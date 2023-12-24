@@ -9,20 +9,24 @@ TwoEncoderOdom::TwoEncoderOdom(std::shared_ptr<Tracker> leftTracker, std::shared
       m_horzTracker(horzTracker),
       m_headingTracker(headingTracker) {}
 
-void TwoEncoderOdom::calibrate() { m_headingTracker->calibrate(); }
+void TwoEncoderOdom::calibrate() { 
+    m_leftTracker->tare();
+    m_horzTracker->tare();
+    m_headingTracker->calibrate(); 
+}
 
 void TwoEncoderOdom::update() {
-    const float deltaRotation = m_headingTracker->getDeltaRotation();
-    const float avgHeading = m_pose.theta + deltaRotation / 2;
+    float deltaRotation = m_headingTracker->getDeltaRotation();
+    float avgHeading = m_pose.theta + deltaRotation / 2;
 
-    const float rawDx = m_horzTracker->getDeltaPosition();
-    const float rawDy = m_leftTracker->getDeltaPosition();
+    float rawDx = m_horzTracker->getDeltaPosition();
+    float rawDy = m_leftTracker->getDeltaPosition();
 
     float localDx = rawDx;
     float localDy = rawDy;
 
     if (deltaRotation != 0) {
-        const float arcToLine = 2 * std::sin(deltaRotation / 2);
+        float arcToLine = 2 * std::sin(deltaRotation / 2);
         localDx = arcToLine * (rawDx / deltaRotation + m_horzTracker->getOffset());
         localDy = arcToLine * (rawDy / deltaRotation + m_leftTracker->getOffset());
     }

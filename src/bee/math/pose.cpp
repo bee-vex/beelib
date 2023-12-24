@@ -17,8 +17,8 @@ Pose Pose::operator*(float rhs) const { return Pose(x * rhs, y * rhs, theta); }
 Pose Pose::operator/(float rhs) const { return Pose(x / rhs, y / rhs, theta); }
 
 Pose Pose::rotateBy(float rhs) const {
-    const float s = std::sin(rhs);
-    const float c = std::cos(rhs);
+    float s = std::sin(rhs);
+    float c = std::cos(rhs);
     return Pose(x * c - y * s, x * s + y * c, theta);
 }
 

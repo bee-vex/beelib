@@ -11,9 +11,7 @@ Bound::Bound(std::shared_ptr<Controller> controller, float errorRange, float err
       m_errorTime(errorTime) {}
 
 bool Bound::isSettled() {
-    float error = m_controller->getError();
-
-    if (std::abs(error) < m_errorRange) {
+    if (std::abs(m_controller->getError()) < m_errorRange) {
         if (m_timer == 0) { m_timer = pros::millis(); }
 
         if (m_timer > m_errorTime) return true;

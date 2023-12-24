@@ -14,11 +14,11 @@ void PID::setKI(float ki) { m_ki = ki; }
 void PID::setKD(float kd) { m_kd = kd; }
 
 float PID::updateInternal(float error) {
-    const float dt = m_tickCounter.getElapsedTime();
+    float dt = m_tickCounter.getElapsedTime();
 
     m_integral += error * dt;
 
-    const float deltaError = (error - m_lastError) / dt;
+    float deltaError = (error - m_lastError) / dt;
     m_lastError = error;
 
     m_tickCounter.resetTicker();

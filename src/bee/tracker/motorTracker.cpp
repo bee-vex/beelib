@@ -11,7 +11,7 @@ MotorGroupTracker::MotorGroupTracker(float offset, std::shared_ptr<pros::MotorGr
       m_rpm(rpm),
       m_idx(idx) {}
 
-void MotorGroupTracker::_tare() { m_motors->tare_position(); }
+void MotorGroupTracker::tareInternal() { m_motors->tare_position(); }
 
 static float get_rpm(pros::motor_gearset_e_t encoder_units) {
     switch (encoder_units) {

@@ -17,6 +17,6 @@ class Inertial : public HeadingTracker {
 
         float getRotation() override;
     private:
-        const std::shared_ptr<pros::IMU> m_imu;
+        std::shared_ptr<pros::IMU> m_imu;
 };
 } // namespace bee

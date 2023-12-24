@@ -12,14 +12,10 @@ class Tracker {
         virtual float getPosition() = 0;
 
         float getDeltaPosition();
-    protected:
-        virtual void _tare() = 0;
     private:
-        void initialize();
+        virtual void tareInternal() = 0;
 
-        const float m_offset;
+        float m_offset;
         float m_lastPosition = 0;
-
-        bool m_lastPositionResetted = false;
 };
 } // namespace bee

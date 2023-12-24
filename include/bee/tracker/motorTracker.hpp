@@ -14,12 +14,11 @@ class MotorGroupTracker : public Tracker {
                           uint8_t idx = 0);
 
         float getPosition() override;
+        void tareInternal() override;
     private:
-        void _tare() override;
-
         const std::shared_ptr<pros::MotorGroup> m_motors;
-        const float m_wheelCirc;
-        const float m_rpm;
-        const uint8_t m_idx;
+        float m_wheelCirc;
+        float m_rpm;
+        uint8_t m_idx;
 };
 } // namespace bee

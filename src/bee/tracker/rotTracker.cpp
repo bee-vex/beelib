@@ -9,7 +9,7 @@ RotTracker::RotTracker(float offset, std::shared_ptr<pros::Rotation> rotation, f
       m_wheelCirc(wheelDiameter * M_PI),
       m_gearing(gearing) {}
 
-void RotTracker::_tare() { m_rotation->reset_position(); }
+void RotTracker::tareInternal() { m_rotation->reset_position(); }
 
 float RotTracker::getPosition() { return m_rotation->get_position() / 36000.0 * m_wheelCirc * m_gearing; }
 } // namespace bee
