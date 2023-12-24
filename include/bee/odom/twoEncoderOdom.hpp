@@ -2,7 +2,7 @@
 
 #include "bee/odom/odom.hpp"
 #include "bee/tracker/tracker.hpp"
-#include "bee/headingTracker/headingTracker.hpp"
+#include "bee/tracker/headingTracker.hpp"
 
 #include <memory>
 
