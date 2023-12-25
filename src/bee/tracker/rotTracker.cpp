@@ -11,5 +11,7 @@ RotTracker::RotTracker(float offset, std::shared_ptr<pros::Rotation> rotation, f
 
 void RotTracker::tareInternal() { m_rotation->reset_position(); }
 
-float RotTracker::getPosition() { return m_rotation->get_position() / 36000.0 * m_wheelCirc * m_gearing; }
+float RotTracker::getPosition() { return m_rotation->get_position() / 36000.0 * m_wheelCirc / m_gearing; }
+
+float RotTracker::getSpeed() { return m_rotation->get_velocity() / 36000.0 * m_wheelCirc / m_gearing; }
 } // namespace bee

@@ -11,6 +11,8 @@ class Tracker {
 
         virtual float getPosition() = 0;
 
+        virtual float getSpeed() = 0;
+
         float getDeltaPosition();
     private:
         virtual void tareInternal() = 0;

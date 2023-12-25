@@ -16,7 +16,7 @@ void Chassis::arcade(float throttle, float turn) {
     float leftVoltage = throttle + turn;
     float rightVoltage = throttle - turn;
 
-    const float mag = std::max(std::abs(leftVoltage), std::abs(rightVoltage)) / 127;
+    float mag = std::max(std::abs(leftVoltage), std::abs(rightVoltage)) / 127;
 
     if (mag > 1) {
         leftVoltage /= mag;

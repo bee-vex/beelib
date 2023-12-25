@@ -11,10 +11,12 @@ class RotTracker : public Tracker {
     public:
         RotTracker(float offset, std::shared_ptr<pros::Rotation> rotation, float wheelDiameter, float gearing = 1.0);
         
-        void tareInternal() override;
-
         float getPosition() override;
+
+        float getSpeed() override;
     private:
+        void tareInternal() override;
+    
         std::shared_ptr<pros::Rotation> m_rotation;
         float m_wheelCirc;
         float m_gearing;

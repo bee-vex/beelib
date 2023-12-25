@@ -27,4 +27,8 @@ float MotorGroupTracker::getPosition() {
 
     return m_motors->get_positions()[0] * m_wheelCirc * m_rpm / get_rpm(m_motors->get_gearing()[0]);
 }
+
+float MotorGroupTracker::getSpeed() {
+    return m_motors->get_actual_velocities()[0] * m_wheelCirc * m_rpm / get_rpm(m_motors->get_gearing()[0]);
+}
 } // namespace bee

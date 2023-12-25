@@ -14,8 +14,11 @@ class MotorGroupTracker : public Tracker {
                           uint8_t idx = 0);
 
         float getPosition() override;
-        void tareInternal() override;
+
+        float getSpeed() override;
     private:
+        void tareInternal() override;
+
         const std::shared_ptr<pros::MotorGroup> m_motors;
         float m_wheelCirc;
         float m_rpm;
