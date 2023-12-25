@@ -1,5 +1,7 @@
 #include "bee/control/pid.hpp"
 
+#include <cmath>
+
 namespace bee {
 PID::PID(float kp, float ki, float kd, float iMax)
     : m_kp(kp),
@@ -17,6 +19,7 @@ float PID::updateInternal(float error) {
     float dt = m_tickCounter.getElapsedTime();
 
     m_integral += error * dt;
+    if (error > m_iMax || std::signbit(error) != std::signbit(m_lastError)) { m_integral = 0; }
 
     float deltaError = (error - m_lastError) / dt;
     m_lastError = error;
