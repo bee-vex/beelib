@@ -1,12 +1,12 @@
 #include "bee/tracker/rotTracker.hpp"
 
-#include <cmath>
+#include "bee/math/util.hpp"
 
 namespace bee {
 RotTracker::RotTracker(float offset, std::shared_ptr<pros::Rotation> rotation, float wheelDiameter, float gearing)
     : Tracker(offset),
       m_rotation(rotation),
-      m_wheelCirc(wheelDiameter * M_PI),
+      m_wheelCirc(wheelDiameter * pi),
       m_gearing(gearing) {}
 
 void RotTracker::tareInternal() { m_rotation->reset_position(); }

@@ -28,4 +28,9 @@ float PID::updateInternal(float error) {
 
     return error * m_kp + m_integral * m_ki + deltaError * m_kd;
 }
+
+void PID::reset() {
+    m_integral = 0;
+    m_lastError = 0;
+}
 } // namespace bee

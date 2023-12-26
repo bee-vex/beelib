@@ -1,5 +1,7 @@
 #include "bee/math/pose.hpp"
 
+#include "bee/math/util.hpp"
+
 #include <cmath>
 
 namespace bee {
@@ -24,5 +26,5 @@ Pose Pose::rotateBy(float rhs) const {
 
 float Pose::distance(const Pose& rhs) const { return std::hypot(x - rhs.x, y - rhs.y); }
 
-float Pose::angleTo(const Pose& rhs) const { return M_PI - std::atan2(y - rhs.y, x - rhs.x); }
+float Pose::angleTo(const Pose& rhs) const { return pi - std::atan2(y - rhs.y, x - rhs.x); }
 } // namespace bee

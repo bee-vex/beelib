@@ -7,4 +7,6 @@ float Controller::update(float error) {
 }
 
 float Controller::getError() const { return m_error; }
+
+void Controller::reset() {}
 } // namespace bee

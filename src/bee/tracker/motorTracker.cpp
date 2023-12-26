@@ -1,13 +1,13 @@
 #include "bee/tracker/motorTracker.hpp"
 
-#include <cmath>
+#include "bee/math/util.hpp"
 
 namespace bee {
 MotorGroupTracker::MotorGroupTracker(float offset, std::shared_ptr<pros::MotorGroup> motors, float wheelDiameter,
                                      float rpm, uint8_t idx)
     : Tracker(offset),
       m_motors(motors),
-      m_wheelCirc(wheelDiameter * M_PI),
+      m_wheelCirc(wheelDiameter * pi),
       m_rpm(rpm),
       m_idx(idx) {}
 
