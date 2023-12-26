@@ -4,7 +4,6 @@
 
 #include <vector>
 #include <memory>
-#include <initializer_list>
 
 namespace bee {
 class AndSettler : public Settler {

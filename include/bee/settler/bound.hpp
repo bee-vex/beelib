@@ -1,7 +1,6 @@
 #pragma once
 
-#include "settler.hpp"
-
+#include "bee/settler/settler.hpp"
 #include "bee/control/control.hpp"
 
 #include <cstdint>
@@ -21,6 +20,6 @@ class Bound : public Settler {
         float m_errorRange;
         float m_errorTime;
 
-        std::uint32_t m_timer = 0;
+        uint32_t m_timer = 0;
 };
 } // namespace bee

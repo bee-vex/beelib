@@ -1,5 +1,6 @@
-#include "control.hpp"
+#pragma once
 
+#include "bee/control/control.hpp"
 #include "bee/util/tickCounter.hpp"
 
 namespace bee {
