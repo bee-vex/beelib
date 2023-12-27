@@ -65,7 +65,34 @@ void ChassisMotionAlgs::turnToPoint(float x, float y, float maxSpeed) {
 }
 
 void ChassisMotionAlgs::moveToPoint(float x, float y, const ChassisMotionAlgs::MoveParams& params) {
-    
+    m_lateralController->reset();
+    m_lateralSettler->reset();
+    m_angularController->reset();
+
+    Pose target(x, y);
+
+    bool close = false;
+
+    while (!close || !m_lateralSettler->isSettled()) {
+        Pose pose = m_odom->getPose();
+
+        float distance = pose.distance(target);
+
+        if (distance < 7.5 && !close) { close = true; }
+
+        float targetHeading = pose.angleTo(target);
+        float angularError = rollAngle180(pose.theta - targetHeading + (params.reversed ? pi : 0));
+        float lateralError = distance * cos(rollAngle180(pose.theta - targetHeading));
+
+        float lateralOutput = capSpeed(m_lateralController->update(lateralError), params.maxSpeed);
+        float angularOutput = m_angularController->update(angularError);
+
+        m_chassis->arcade(lateralOutput, angularOutput);
+
+        pros::delay(10);
+    }
+
+    m_chassis->arcade(0, 0);
 }
 
 } // namespace bee

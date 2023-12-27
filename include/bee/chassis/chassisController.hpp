@@ -4,7 +4,6 @@
 #include "bee/odom/odom.hpp"
 #include "bee/control/control.hpp"
 #include "bee/settler/settler.hpp"
-#include "bee/math/pose.hpp"
 
 #include <memory>
 
