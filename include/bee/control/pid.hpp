@@ -10,10 +10,6 @@ class PID : public Controller {
 
         void setKP(float kp);
 
-        void setKI(float ki);
-
-        void setKD(float kd);
-
         void reset() override;
     private:
         float updateInternal(float error) override;

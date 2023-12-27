@@ -11,10 +11,6 @@ PID::PID(float kp, float ki, float kd, float iMax)
 
 void PID::setKP(float kp) { m_kp = kp; }
 
-void PID::setKI(float ki) { m_ki = ki; }
-
-void PID::setKD(float kd) { m_kd = kd; }
-
 float PID::updateInternal(float error) {
     float dt = m_tickCounter.getElapsedTime();
 

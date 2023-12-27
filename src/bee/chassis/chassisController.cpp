@@ -47,10 +47,12 @@ void ChassisMotionAlgs::turnToPoint(float x, float y, float maxSpeed) {
     m_angularController->reset();
     m_angularSettler->reset();
 
+    Pose target(x, y);
+
     while (!m_angularSettler->isSettled()) {
         Pose pose = m_odom->getPose();
 
-        float targetHeading = pi - std::atan2(y - pose.y, x - pose.x);
+        float targetHeading = pose.angleTo(target);
 
         float error = rollAngle180(targetHeading - pose.theta);
 
@@ -82,7 +84,7 @@ void ChassisMotionAlgs::moveToPoint(float x, float y, const ChassisMotionAlgs::M
 
         float targetHeading = pose.angleTo(target);
         float angularError = rollAngle180(pose.theta - targetHeading + (params.reversed ? pi : 0));
-        float lateralError = distance * cos(rollAngle180(pose.theta - targetHeading));
+        float lateralError = distance * std::cos(rollAngle180(pose.theta - targetHeading));
 
         float lateralOutput = capSpeed(m_lateralController->update(lateralError), params.maxSpeed);
         float angularOutput = m_angularController->update(angularError);
