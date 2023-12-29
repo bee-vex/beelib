@@ -3,8 +3,8 @@
 namespace bee {
 class Settler {
     public:
-        virtual void reset();
-
         virtual bool isSettled() = 0;
+
+        virtual void reset();
 };
 } // namespace bee

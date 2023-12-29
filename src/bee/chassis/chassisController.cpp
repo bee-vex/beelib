@@ -53,7 +53,6 @@ void ChassisMotionAlgs::turnToPoint(float x, float y, float maxSpeed) {
         Pose pose = m_odom->getPose();
 
         float targetHeading = pose.angleTo(target);
-
         float error = rollAngle180(targetHeading - pose.theta);
 
         float output = capSpeed(m_angularController->update(error), maxSpeed);
@@ -96,5 +95,4 @@ void ChassisMotionAlgs::moveToPoint(float x, float y, const ChassisMotionAlgs::M
 
     m_chassis->arcade(0, 0);
 }
-
 } // namespace bee
