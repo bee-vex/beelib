@@ -31,9 +31,7 @@ float PID::update(float error) {
     return m_output;
 }
 
-float PID::getError() {
-    return m_lastError;
-}
+float PID::getError() { return m_lastError; }
 
 void PID::reset() {
     m_integral = 0;
