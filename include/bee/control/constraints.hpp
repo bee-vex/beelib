@@ -1,6 +1,6 @@
 #pragma once
 
-#include "bee/controller/controller.hpp"
+#include "bee/control/controller.hpp"
 
 namespace bee {
 template <typename Error> class HasError {
