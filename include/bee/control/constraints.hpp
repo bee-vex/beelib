@@ -1,6 +1,6 @@
 #pragma once
 
-#include "controller.hpp"
+#include "bee/controller/controller.hpp"
 
 namespace bee {
 
