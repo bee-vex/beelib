@@ -19,7 +19,9 @@ GenesisController::GenesisController(float min, float max, float roundness, floa
 
 float GenesisController::updateInternal(float error) {
     m_internalPID.setKP(genesisGainFunction(error, m_min, m_max, m_roundness, m_thickness));
-    
+
     return m_internalPID.update(error);
 }
+
+void GenesisController::reset() { m_internalPID.reset(); }
 } // namespace bee

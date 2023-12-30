@@ -11,8 +11,12 @@ PID::PID(float kp, float ki, float kd, float iMax)
 
 void PID::setKP(float kp) { m_kp = kp; }
 
+void PID::setKI(float ki) { m_ki = ki; }
+
+void PID::setKD(float kd) { m_kd = kd; }
+
 float PID::updateInternal(float error) {
-    float dt = m_tickCounter.getElapsedTime();
+    float dt = m_timer.getElapsedTime();
 
     m_integral += error * dt;
     if (error > m_iMax || std::signbit(error) != std::signbit(m_lastError)) { m_integral = 0; }
@@ -20,9 +24,11 @@ float PID::updateInternal(float error) {
     float deltaError = (error - m_lastError) / dt;
     m_lastError = error;
 
-    m_tickCounter.resetTicker();
+    m_timer.start();
 
-    return error * m_kp + m_integral * m_ki + deltaError * m_kd;
+    m_output = error * m_kp + m_integral * m_ki + deltaError * m_kd;
+
+    return m_output;
 }
 
 void PID::reset() {

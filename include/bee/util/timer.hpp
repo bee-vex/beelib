@@ -3,11 +3,15 @@
 #include <cstdint>
 
 namespace bee {
-class TickCounter {
+class Timer {
     public:
-        TickCounter() = default;
+        Timer() = default;
         
-        void resetTicker();
+        void stop();
+
+        void start();
+
+        bool isStopped();
 
         float getElapsedTime();
     private:

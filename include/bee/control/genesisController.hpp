@@ -1,12 +1,12 @@
 #pragma once
 
-#include "bee/control/control.hpp"
+#include "bee/control/closedLoopController.hpp"
 #include "bee/control/pid.hpp"
 
 namespace bee {
 float genesisGainFunction(float error, float min, float max, float roundness, float thickness);
 
-class GenesisController : public Controller {
+class GenesisController : public ClosedLoopController<float, float> {
     public:
         GenesisController(float min, float max, float roundness, float thickness, float ki, float kd, float iMax);
         

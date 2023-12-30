@@ -1,14 +1,18 @@
 #pragma once
 
-#include "bee/control/control.hpp"
-#include "bee/util/tickCounter.hpp"
+#include "bee/control/closedLoopController.hpp"
+#include "bee/util/timer.hpp"
 
 namespace bee {
-class PID : public Controller {
+class PID : public ClosedLoopController<float, float> {
     public:
         PID(float kp, float ki, float kd, float iMax);
 
         void setKP(float kp);
+
+        void setKI(float ki);
+
+        void setKD(float kd);
 
         void reset() override;
     private:
@@ -22,6 +26,8 @@ class PID : public Controller {
         float m_integral;
         float m_lastError;
 
-        TickCounter m_tickCounter;
+        float m_output;
+
+        Timer m_timer;
 };
 } // namespace bee
