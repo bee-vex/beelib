@@ -9,5 +9,4 @@ template <typename Error> class HasError {
         virtual Error getError() = 0;
 };
 
-
 } // namespace bee
