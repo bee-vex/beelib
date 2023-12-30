@@ -11,6 +11,7 @@ class GenesisController : public Controller<float, float>, public HasError<float
         GenesisController(float min, float max, float roundness, float thickness, float ki, float kd, float iMax);
 
         float update(float error) override;
+        
         void reset() override;
         float getError() override;
     private:
