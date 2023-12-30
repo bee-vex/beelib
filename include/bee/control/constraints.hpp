@@ -11,6 +11,7 @@ public:
 };
 
 class HasTime {
+public:
     virtual uint32_t getRuntime() = 0;
 };
 
