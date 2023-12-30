@@ -41,7 +41,7 @@ void Grapher::loop() {
             pros::screen::set_pen(m_colors[item.first]);
             pros::screen::print(pros::text_format_e_t::E_TEXT_SMALL, GRAPH_LEFT + MAX_CACHE_SIZE,
                                 (++indexLine) * 14 + 30, item.first.c_str());
-            for (int i = 0; i < item.second.size() - 1; i++) {
+            for (int i = 0; i < static_cast<int>(item.second.size()) - 1; i++) {
                 double val1 = item.second[i] * (GRAPH_BOTTOM - GRAPH_TOP);
                 double val2 = item.second[i + 1] * (GRAPH_BOTTOM - GRAPH_TOP);
                 pros::screen::draw_line(GRAPH_LEFT + i, GRAPH_BOTTOM - val1, GRAPH_LEFT + i + 1, GRAPH_BOTTOM - val2);
