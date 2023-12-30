@@ -1,7 +1,7 @@
 #pragma once
 
 #include "bee/settler/settler.hpp"
-#include "bee/control/closedLoopController.hpp"
+#include "bee/control/constraints.hpp"
 #include "bee/util/timer.hpp"
 
 #include <cstdint>
@@ -9,9 +9,13 @@
 #include <cmath>
 
 namespace bee {
-template <class Output> class Bound : public Settler {
+template <class Controller> class Bound : public Settler {
+    static_assert(
+	    std::is_base_of<HasError<float>, Controller>::value, 
+	    "Controller passed to Bound settler does not implement HasError<float>");
+
     public:
-        Bound(std::shared_ptr<Controller<double, Output>> controller, float errorRange, float errorTime)
+        Bound(std::shared_ptr<Controller> controller, float errorRange, float errorTime)
             : m_controller(controller),
               m_errorRange(errorRange),
               m_errorTime(errorTime) {}
@@ -30,7 +34,7 @@ template <class Output> class Bound : public Settler {
 
         void reset() override { m_timer.stop(); }
     private:
-        std::shared_ptr<Controller<double, Output>> m_controller;
+        std::shared_ptr<Controller> m_controller;
 
         float m_errorRange;
         float m_errorTime;

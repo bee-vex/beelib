@@ -15,7 +15,7 @@ void PID::setKI(float ki) { m_ki = ki; }
 
 void PID::setKD(float kd) { m_kd = kd; }
 
-float PID::updateInternal(float error) {
+float PID::update(float error) {
     float dt = m_timer.getElapsedTime();
 
     m_integral += error * dt;
@@ -29,6 +29,10 @@ float PID::updateInternal(float error) {
     m_output = error * m_kp + m_integral * m_ki + deltaError * m_kd;
 
     return m_output;
+}
+
+float PID::getError() {
+    return m_lastError;
 }
 
 void PID::reset() {

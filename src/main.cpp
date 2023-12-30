@@ -1,7 +1,9 @@
 #include "main.h"
 
+#include "bee/control/pid.hpp"
 #include "bee/math/util.hpp"
 #include "bee/odom/twoEncoderOdom.hpp"
+#include "bee/settler/bound.hpp"
 #include "bee/tracker/motorTracker.hpp"
 #include "bee/tracker/rotTracker.hpp"
 #include "bee/tracker/inertial.hpp"
@@ -27,6 +29,11 @@ auto horzTracker = std::make_shared<bee::RotTracker>(-8.476, horzRotation, 2.744
 auto headingTracker = std::make_shared<bee::Inertial>(inertial);
 
 auto odom = std::make_shared<bee::TwoEncoderOdom>(leftTracker, horzTracker, headingTracker);
+
+void settlerDemo() {
+    auto pid = std::make_shared<bee::PID>(0,0,0,0);
+    auto boundSettler = bee::Bound<bee::PID>(pid, 0, 0);
+}
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
