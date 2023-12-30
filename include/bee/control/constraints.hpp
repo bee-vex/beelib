@@ -9,9 +9,5 @@ template <typename Error> class HasError {
         virtual Error getError() = 0;
 };
 
-class HasTime {
-    public:
-        virtual uint32_t getRuntime() = 0;
-};
 
 } // namespace bee
