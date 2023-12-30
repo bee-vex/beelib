@@ -1,5 +1,4 @@
 #include "bee/control/genesisController.hpp"
-
 #include <cmath>
 
 namespace bee {

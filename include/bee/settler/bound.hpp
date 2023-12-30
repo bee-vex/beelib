@@ -10,10 +10,8 @@
 
 namespace bee {
 template <class Controller> class Bound : public Settler {
-    static_assert(
-	    std::is_base_of<HasError<float>, Controller>::value, 
-	    "Controller passed to Bound settler does not implement HasError<float>");
-
+        static_assert(std::is_base_of<HasError<float>, Controller>::value,
+                      "Controller passed to Bound settler does not implement HasError<float>");
     public:
         Bound(std::shared_ptr<Controller> controller, float errorRange, float errorTime)
             : m_controller(controller),

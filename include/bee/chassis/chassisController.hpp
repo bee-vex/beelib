@@ -1,7 +1,6 @@
 #pragma once
 
 #include "bee/chassis/chassis.hpp"
-#include "bee/control/closedLoopController.hpp"
 #include "bee/odom/odom.hpp"
 #include "bee/control/controller.hpp"
 #include "bee/settler/settler.hpp"
@@ -17,9 +16,9 @@ class ChassisMotionAlgs {
         };
 
         ChassisMotionAlgs(std::shared_ptr<Chassis> chassis, std::shared_ptr<Odom> odom,
-                          std::shared_ptr<ClosedLoopController<float, float>> lateralController,
+                          std::shared_ptr<Controller<float, float>> lateralController,
                           std::shared_ptr<Settler> lateralSettler,
-                          std::shared_ptr<ClosedLoopController<float, float>> angularController,
+                          std::shared_ptr<Controller<float, float>> angularController,
                           std::shared_ptr<Settler> angularSettler);
 
         void turnToHeading(float targetHeading, float maxSpeed = 127);
@@ -32,10 +31,10 @@ class ChassisMotionAlgs {
 
         std::shared_ptr<Odom> m_odom;
 
-        std::shared_ptr<ClosedLoopController<float, float>> m_lateralController;
+        std::shared_ptr<Controller<float, float>> m_lateralController;
         std::shared_ptr<Settler> m_lateralSettler;
 
-        std::shared_ptr<ClosedLoopController<float, float>> m_angularController;
+        std::shared_ptr<Controller<float, float>> m_angularController;
         std::shared_ptr<Settler> m_angularSettler;
 };
 } // namespace bee

@@ -15,9 +15,9 @@ static float capSpeed(float speed, float maxSpeed) {
 }
 
 ChassisMotionAlgs::ChassisMotionAlgs(std::shared_ptr<Chassis> chassis, std::shared_ptr<Odom> odom,
-                                     std::shared_ptr<ClosedLoopController<float, float>> lateralController,
+                                     std::shared_ptr<Controller<float, float>> lateralController,
                                      std::shared_ptr<Settler> lateralSettler,
-                                     std::shared_ptr<ClosedLoopController<float, float>> angularController,
+                                     std::shared_ptr<Controller<float, float>> angularController,
                                      std::shared_ptr<Settler> angularSettler)
     : m_chassis(chassis),
       m_odom(odom),
