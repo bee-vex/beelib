@@ -88,6 +88,9 @@ void ChassisMotionAlgs::moveToPoint(float x, float y, const ChassisMotionAlgs::M
         float lateralOutput = capSpeed(m_lateralController->update(lateralError), params.maxSpeed);
         float angularOutput = m_angularController->update(angularError);
 
+        float overturn = lateralOutput + std::abs(angularOutput) - 127;
+        if (overturn > 0) { lateralOutput -= overturn; }
+
         m_chassis->arcade(lateralOutput, angularOutput);
 
         pros::delay(10);
