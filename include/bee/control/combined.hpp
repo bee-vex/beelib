@@ -7,8 +7,8 @@ namespace bee {
 
 template <typename Input, typename Output, typename... Controllers> class CombinedControllers
     : public Controller<Input, Output> {
-        std::tuple<Controllers...> controllers;
-        std::function<Output(Input, std::tuple<Controllers...>)> combine;
+        std::tuple<Controllers...> m_controllers;
+        std::function<Output(Input, std::tuple<Controllers...>)> m_combine;
     public:
         static_assert(
             (traits::is_controller<Controllers>::value && ...),
@@ -16,13 +16,13 @@ template <typename Input, typename Output, typename... Controllers> class Combin
 
         CombinedControllers(std::tuple<Controllers...> controllers,
                             std::function<Output(Input, std::tuple<Controllers...>)> combine)
-            : controllers(controllers),
-              combine(combine) {}
+            : m_controllers(controllers),
+              m_combine(combine) {}
 
-        Output update(Input input) override { return combine(input, controllers); }
+        Output update(Input input) override { return m_combine(input, m_controllers); }
 
         void reset() override {
-            std::apply([](auto&... tuple) { (tuple.reset(), ...); }, controllers);
+            std::apply([](auto&... tuple) { (tuple.reset(), ...); }, m_controllers);
         }
 };
 
