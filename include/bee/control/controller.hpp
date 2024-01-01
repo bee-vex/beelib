@@ -10,6 +10,7 @@ template <typename Input, typename Output> class Controller {
         virtual void reset() = 0;
 };
 
+namespace traits {
 inline std::false_type is_controller_impl(...) { return std::false_type(); };
 
 template <typename Input, typename Output>
@@ -19,4 +20,5 @@ inline std::true_type is_controller_impl(Controller<Input, Output> const volatil
 
 template <typename T> using is_controller = decltype(is_controller_impl(std::declval<T&>()));
 
+} // namespace traits
 } // namespace bee

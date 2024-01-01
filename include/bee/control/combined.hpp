@@ -11,7 +11,7 @@ template <typename Input, typename Output, typename... Controllers> class Combin
         std::function<Output(Input, std::tuple<Controllers...>)> combine;
     public:
         static_assert(
-            (is_controller<Controllers>::value && ...),
+            (traits::is_controller<Controllers>::value && ...),
             "Controller types passed to CombinedControllers must implement the Controller<Input, Output> interface");
 
         CombinedControllers(std::tuple<Controllers...> controllers,
