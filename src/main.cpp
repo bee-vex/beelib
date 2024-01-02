@@ -13,6 +13,8 @@
 #include "pros/motors.hpp"
 #include "pros/rotation.hpp"
 
+#include "autons.hpp"
+
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
 // devices
@@ -33,6 +35,43 @@ auto odom = std::make_shared<bee::TwoEncoderOdom>(leftTracker, horzTracker, head
 void settlerDemo() {
     auto pid = std::make_shared<bee::PID>(0,0,0,0);
     auto boundSettler = bee::Bound<bee::PID>(pid, 0, 0);
+}
+
+int autonState = 0; 
+pros::ADIDigitalIn limitSwitch('F');
+
+void autonSelect(){
+    while (true){
+        pros::delay(20);
+        if(limitSwitch.get_new_press()){
+            autonState ++; 
+            if (autonState>4){
+                autonState = 0; 
+            }
+        }
+
+        switch(autonState){
+            case 0: 
+                pros::lcd::set_text(2, "QualClose");
+                break;
+            case 1: 
+                pros::lcd::set_text(2, "QualFar");
+                break;
+            case 2: 
+                pros::lcd::set_text(2, "ElimsClose");
+                break;
+            case 3: 
+                pros::lcd::set_text(2, "ElimsFar");
+                break;
+            case 4: 
+                pros::lcd::set_text(2, "Skills");
+                break;
+            default: 
+                pros::lcd::set_text(2, "QualClose");
+                break;      
+        }
+    }
+
 }
 
 /**
@@ -90,7 +129,27 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+    switch(autonState){
+            case 0: 
+                qualClose(); 
+                break;
+            case 1: 
+                qualFar(); 
+                break;
+            case 2: 
+                elimsClose(); 
+                break;
+            case 3: 
+                elimsFar(); 
+                break;
+            case 4: 
+                skills(); 
+                break;
+            default: 
+                break; 
+    }
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
