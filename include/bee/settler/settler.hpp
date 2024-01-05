@@ -1,4 +1,5 @@
 #pragma once
+#include <type_traits>
 
 namespace bee {
 class Settler {
@@ -7,4 +8,10 @@ class Settler {
 
         virtual void reset();
 };
+
+namespace traits {
+
+template <typename T> using is_settler = std::is_base_of<Settler, T>;
+
+} // namespace traits
 } // namespace bee
