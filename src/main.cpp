@@ -1,5 +1,7 @@
 #include "main.h"
 
+#include "bee/chassis/chassis.hpp"
+#include "bee/chassis/chassisController.hpp"
 #include "bee/control/pid.hpp"
 #include "bee/math/util.hpp"
 #include "bee/odom/twoEncoderOdom.hpp"
@@ -17,39 +19,49 @@
 
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
-// devices
+// Devices
 auto leftMotorGroup = std::make_shared<pros::MotorGroup>(std::initializer_list<pros::Motor> {
-    pros::Motor(-19, pros::E_MOTOR_GEAR_BLUE), pros::Motor(-20, pros::E_MOTOR_GEAR_BLUE)});
-auto rightMotorGroup = std::make_shared<pros::MotorGroup>(std::initializer_list<pros::Motor> {
-    pros::Motor(11, pros::E_MOTOR_GEAR_BLUE), pros::Motor(12, pros::E_MOTOR_GEAR_BLUE)});
-auto horzRotation = std::make_shared<pros::Rotation>(3, true);
-auto inertial = std::make_shared<pros::IMU>(2);
+    pros::Motor(-8, pros::E_MOTOR_GEAR_BLUE), 
+    pros::Motor(-2, pros::E_MOTOR_GEAR_BLUE), 
+    pros::Motor(3, pros::E_MOTOR_GEAR_BLUE)});
 
-// trackers
-auto leftTracker = std::make_shared<bee::MotorGroupTracker>(-11.725 / 2, leftMotorGroup, 3.25, 400);
-auto horzTracker = std::make_shared<bee::RotTracker>(-8.476, horzRotation, 2.744);
+auto rightMotorGroup = std::make_shared<pros::MotorGroup>(std::initializer_list<pros::Motor> {
+    pros::Motor(4, pros::E_MOTOR_GEAR_BLUE), 
+    pros::Motor(5, pros::E_MOTOR_GEAR_BLUE), 
+    pros::Motor(-6, pros::E_MOTOR_GEAR_BLUE)});
+
+bee::Chassis chassis(leftMotorGroup, rightMotorGroup);
+
+auto horzRotation = std::make_shared<pros::Rotation>(21, false);
+auto inertial = std::make_shared<pros::IMU>(1);
+
+// Trackers
+auto leftTracker = std::make_shared<bee::MotorGroupTracker>(-11.725 / 2, leftMotorGroup, 2.75, 400);
+auto horzTracker = std::make_shared<bee::RotTracker>(-8.476, horzRotation, 2.75);
 auto headingTracker = std::make_shared<bee::Inertial>(inertial);
 
 auto odom = std::make_shared<bee::TwoEncoderOdom>(leftTracker, horzTracker, headingTracker);
+
+bee::ChassisMotionAlgs Chassis(bee::Chassis, bee::TwoEncoderOdom);
 
 void settlerDemo() {
     auto pid = std::make_shared<bee::PID>(0,0,0,0);
     auto boundSettler = bee::Bound<bee::PID>(pid, 0, 0);
 }
 
+// Autonomous Selector 
 int autonState = 0; 
 pros::ADIDigitalIn limitSwitch('F');
 
 void autonSelect(){
-    while (true){
+    while (true) {
         pros::delay(20);
         if(limitSwitch.get_new_press()){
-            autonState ++; 
+            autonState ++;
             if (autonState>4){
-                autonState = 0; 
+                autonState = 0;
             }
         }
-
         switch(autonState){
             case 0: 
                 pros::lcd::set_text(2, "QualClose");
@@ -131,23 +143,23 @@ void competition_initialize() {}
  */
 void autonomous() {
     switch(autonState){
-            case 0: 
-                qualClose(); 
-                break;
-            case 1: 
-                qualFar(); 
-                break;
-            case 2: 
-                elimsClose(); 
-                break;
-            case 3: 
-                elimsFar(); 
-                break;
-            case 4: 
-                skills(); 
-                break;
-            default: 
-                break; 
+        case 0: 
+            qualClose(); 
+            break;
+        case 1: 
+            qualFar(); 
+            break;
+        case 2: 
+            elimsClose(); 
+            break;
+        case 3: 
+            elimsFar(); 
+            break;
+        case 4: 
+            skills(); 
+            break;
+        default: 
+            break; 
     }
 }
 
@@ -166,8 +178,9 @@ void autonomous() {
  */
 void opcontrol() {
     while (true) {
-        leftMotorGroup->move(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
-        rightMotorGroup->move(controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y));
+        chassis.drive_curve();
+        // chassis.arcade(controller.get_analog(ANALOG_RIGHT_X),
+        // controller.get_analog(ANALOG_LEFT_Y));
         pros::delay(10);
     }
 }

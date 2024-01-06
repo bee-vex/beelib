@@ -1,6 +1,9 @@
 #include "autons.hpp"
+#include "main.h"
 
-void qualClose() {}
+void qualClose() {
+    // chassis.
+}
 
 void qualFar() {}
 
